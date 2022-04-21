@@ -1,0 +1,113 @@
+﻿<html>
+<title>USU Test</title>
+<script type="text/javascript">
+const USU_serverURL = "http://127.0.0.1:8000/";
+
+function USU_table() {
+    let xhr = new XMLHttpRequest();
+    xhr.open("GET", USU_serverURL + "table");
+
+    xhr.onload = () => {
+        document.getElementById("full").innerHTML = xhr.responseText;
+    }
+
+    xhr.send();
+}
+
+function USU_avgAge() {
+    let xhr = new XMLHttpRequest();
+    xhr.open("GET", USU_serverURL + "avgage");
+
+    xhr.onload = () => {
+        document.getElementById("avgage").innerHTML = xhr.responseText;
+    }
+
+    xhr.send();
+}
+
+function USU_ageDistr() {
+    let xhr = new XMLHttpRequest();
+    xhr.open("GET", USU_serverURL + "agedistr");
+
+    xhr.onload = () => {
+        document.getElementById("agedistr").innerHTML = xhr.responseText;
+    }
+
+    xhr.send();
+}
+
+function USU_refresh() {
+    var el;
+    //if ((el = document.getElementById("full").innerHTML) && el.length > 0) {
+        USU_table();
+    //}
+    if ((el = document.getElementById("avgage").innerHTML) && el.length > 0) {
+        USU_avgAge();
+    }
+    if ((el = document.getElementById("agedistr").innerHTML) && el.length > 0) {
+        USU_ageDistr();
+    }
+
+}
+
+function USU_insert(name, age, position) {
+    let xhr = new XMLHttpRequest();
+    xhr.open("PUT", USU_serverURL + "update?name="+name+"&age="+age+"&position="+position);
+
+    xhr.onload = () => {
+        console.log(xhr.responseText)
+        USU_refresh();
+    }
+
+    xhr.send();
+}
+
+function USU_update(name, age, position, pk) {
+    let xhr = new XMLHttpRequest();
+    xhr.open("PUT", USU_serverURL + "update?name="+name+"&age="+age+"&position="+position+"&pk="+pk);
+
+    xhr.onload = () => {
+        USU_refresh();
+    }
+
+    xhr.send();
+}
+
+function USU_delete(pk) {
+    let xhr = new XMLHttpRequest();
+    xhr.open("POST", USU_serverURL + "delete?pk="+pk);
+
+    xhr.onload = () => {
+        USU_refresh();
+    }
+
+    xhr.send();
+}
+
+function USU_resetDB() {
+    let xhr = new XMLHttpRequest();
+    xhr.open("GET", USU_serverURL + "testinit");
+
+    xhr.onload = () => {
+        USU_refresh();
+    }
+
+    xhr.send();
+}
+
+</script>
+</head>
+<body>
+<div id="full" class="table"></div>
+<div id="avgage" class="table"></div>
+<div id="agedistr" class="table"></div>
+<!-- Jana", "age":"30", "position":"Frontend developer -->
+<input type="button" value="Show Table" name="table" onClick="USU_table()">
+<input type="button" value="Insert Person" name="insert" onClick="USU_insert('Jana', 30, 'Frontend developer')">
+<input type="button" value="Update Person" name="update" onClick="USU_update('Lojza', 3, 'Scrum master', 18)">
+<input type="button" value="Remove Person" name="delete" onClick="USU_delete(18)">
+<input type="button" value="Query Avg Age" name="avgAge" onClick="USU_avgAge()">
+<input type="button" value="Query Age Distribution" name="ageDistr" onClick="USU_ageDistr()">
+<input type="button" value="Reset DB" name="resetDB" onClick="USU_resetDB()">
+</body>
+</html>
