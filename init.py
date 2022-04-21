@@ -27,12 +27,18 @@ if cursor.fetchone()[0] != 1 :
              {"name":"Ales", "age":"43", "position":"Product owner"},
              {"name":"Jana", "age":"53", "position":"Scrum master"},
              {"name":"Jirka", "age":"28", "position":"Scrum master"},
-             {"name":"Jirka", "age":"50", "position":"Scrum master"},
-             {"name":"Alena", "age":"58", "position":"CEO"}]
-    for row in data :
-        print(row)
-        tuple = (row["name"], row["age"], row["position"])
-        cursor.execute('''INSERT INTO USU (Name, Age, Position) VALUES (?,?,?)''',tuple)
+             {"name":"Jirka", "age":"50", "position":"Scrum master"}]
+    i = 0
+    while i < 1000:
+        for row in data :
+            print(row)
+            tuple = (row["name"], row["age"], row["position"])
+            cursor.execute('''INSERT INTO USU (Name, Age, Position) VALUES (?,?,?)''',tuple)
+            i = i + 1;
+    #CEO is only one:)
+    tuple = ("Alena", 58, "CEO")
+    cursor.execute('''INSERT INTO USU (Name, Age, Position) VALUES (?,?,?)''',tuple)
+    print(i + 1)
 
 connection.commit()
 connection.close()
