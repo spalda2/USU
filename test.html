@@ -1,5 +1,9 @@
 ﻿<html>
 <title>USU Test</title>
+<style>
+div.table {overflow-x: hidden;overflow-y: auto;max-height: 500px;border-color:#90ee90;border-style:solid;}
+div.buttons {border-style:none;justify-content: center;display: flex;}
+</style>
 <script type="text/javascript">
 const USU_serverURL = "http://127.0.0.1:8000/";
 
@@ -84,9 +88,9 @@ function USU_delete(pk) {
     xhr.send();
 }
 
-function USU_resetDB() {
+function USU_generateDB() {
     let xhr = new XMLHttpRequest();
-    xhr.open("GET", USU_serverURL + "testinit");
+    xhr.open("GET", USU_serverURL + "gendb");
 
     xhr.onload = () => {
         USU_refresh();
@@ -102,12 +106,14 @@ function USU_resetDB() {
 <div id="avgage" class="table"></div>
 <div id="agedistr" class="table"></div>
 <!-- Jana", "age":"30", "position":"Frontend developer -->
-<input type="button" value="Show Table" name="table" onClick="USU_table()">
-<input type="button" value="Insert Person" name="insert" onClick="USU_insert('Jana', 30, 'Frontend developer')">
-<input type="button" value="Update Person" name="update" onClick="USU_update('Lojza', 3, 'Scrum master', 18)">
-<input type="button" value="Remove Person" name="delete" onClick="USU_delete(18)">
-<input type="button" value="Query Avg Age" name="avgAge" onClick="USU_avgAge()">
-<input type="button" value="Query Age Distribution" name="ageDistr" onClick="USU_ageDistr()">
-<input type="button" value="Reset DB" name="resetDB" onClick="USU_resetDB()">
+<div class="buttons">
+<input type="button" value="1.Generate DB" name="resetDB" onClick="USU_generateDB()">
+<input type="button" value="2.Show Table" name="table" onClick="USU_table()">
+<input type="button" value="3.Insert Person" name="insert" onClick="USU_insert('Jana', 30, 'Frontend developer')">
+<input type="button" value="4.Update Person" name="update" onClick="USU_update('Lojza', 3, 'Scrum master', 18)">
+<input type="button" value="5.Remove Person" name="delete" onClick="USU_delete(18)">
+<input type="button" value="6.Query Avg Age" name="avgAge" onClick="USU_avgAge()">
+<input type="button" value="7.Query Age Distribution" name="ageDistr" onClick="USU_ageDistr()">
+</div>
 </body>
 </html>

@@ -36,8 +36,8 @@ def gen_json(curs):
         data.append(d)
     return data
 
-@app.get("/testinit")
-def testInit():
+@app.get("/gendb")
+def genDB():
     """
        GFG Test Init
     """

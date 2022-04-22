@@ -1,11 +1,12 @@
 import sqlite3
+import sys
 
 connection = sqlite3.connect('usu.db')
 cursor = connection.cursor()
 cursor.execute(''' SELECT count(name) FROM sqlite_master WHERE type='table' AND name='USU' ''')
 
 #if the count is 1, then table exists
-if cursor.fetchone()[0] != 1 :
+if cursor.fetchone()[0] != 1 or (len(sys.argv) > 1 and sys.argv[1] == '1'):
     print('Populating table USU..')
     cursor.execute('''CREATE TABLE IF NOT EXISTS USU
                   (Name TEXT NOT NULL, Age INT NOT NULL, Position INT NOT NULL, pk INTEGER PRIMARY KEY AUTOINCREMENT)''')
